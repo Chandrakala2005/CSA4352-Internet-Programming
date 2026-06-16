@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MediCare Hospital - Appointment Booking</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f0fdfa;
+}
+
+/* Header */
+header{
+    background:linear-gradient(135deg,#0f766e,#14b8a6);
+    color:white;
+    text-align:center;
+    padding:75px 20px;
+}
+
+header h1{
+    font-size:48px;
+    margin-bottom:12px;
+}
+
+header p{
+    font-size:20px;
+}
+
+/* Specialists */
+.specialists{
+    padding:50px 10%;
+    text-align:center;
+}
+
+.specialists h2,
+.appointment h2{
+    color:#0f766e;
+    font-size:32px;
+    margin-bottom:30px;
+}
+
+.doctor-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.doctor-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    text-align:left;
+}
+
+.doctor-card img{
+    width:100%;
+    height:270px;
+    object-fit:cover;
+}
+
+.doctor-info{
+    padding:18px;
+}
+
+.doctor-info h3{
+    color:#134e4a;
+    margin-bottom:8px;
+}
+
+/* Appointment */
+.appointment{
+    width:80%;
+    margin:40px auto;
+    text-align:center;
+}
+
+.form-box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    text-align:left;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+    font-weight:bold;
+    color:#134e4a;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+textarea{
+    height:100px;
+}
+
+button{
+    margin-top:20px;
+    background:#14b8a6;
+    color:white;
+    border:none;
+    padding:14px 28px;
+    border-radius:8px;
+    font-size:17px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0f766e;
+}
+
+#result{
+    margin-top:20px;
+}
+
+/* Footer */
+footer{
+    background:#134e4a;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+/* Responsive */
+@media(max-width:900px){
+    .doctor-grid{
+        grid-template-columns:1fr;
+    }
+
+    .appointment{
+        width:90%;
+    }
+
+    header h1{
+        font-size:32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Book Your Doctor Appointment Online</h1>
+    <p>Fast, Secure and Convenient Healthcare Scheduling</p>
+</header>
+
+<section class="specialists">
+    <h2>Our Specialists</h2>
+
+    <div class="doctor-grid">
+
+        <div class="doctor-card">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2">
+            <div class="doctor-info">
+                <h3>Dr. Sarah Johnson</h3>
+                <p>Cardiologist</p>
+                <p>10+ Years Experience</p>
+            </div>
+        </div>
+
+        <div class="doctor-card">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d">
+            <div class="doctor-info">
+                <h3>Dr. Michael Lee</h3>
+                <p>Neurologist</p>
+                <p>12+ Years Experience</p>
+            </div>
+        </div>
+
+        <div class="doctor-card">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f">
+            <div class="doctor-info">
+                <h3>Dr. Emily Davis</h3>
+                <p>Pediatrician</p>
+                <p>8+ Years Experience</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="appointment">
+    <h2>Book an Appointment</h2>
+
+    <div class="form-box">
+
+        <label>Patient Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+
+        <label>Phone Number</label>
+        <input type="text" id="phone" placeholder="Enter your phone number">
+
+        <label>Department</label>
+        <select id="department">
+            <option>Cardiology</option>
+            <option>Neurology</option>
+            <option>Pediatrics</option>
+            <option>Orthopedics</option>
+            <option>Dermatology</option>
+        </select>
+
+        <label>Doctor</label>
+        <select id="doctor">
+            <option>Dr. Sarah Johnson</option>
+            <option>Dr. Michael Lee</option>
+            <option>Dr. Emily Davis</option>
+            <option>Dr. Robert Wilson</option>
+        </select>
+
+        <label>Appointment Date</label>
+        <input type="date" id="date">
+
+        <label>Appointment Time</label>
+        <input type="time" id="time">
+
+        <label>Symptoms / Notes</label>
+        <textarea id="symptoms" placeholder="Describe your symptoms"></textarea>
+
+        <button onclick="bookAppointment()">Book Appointment</button>
+
+        <div id="result"></div>
+
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 MediCare Hospital. All Rights Reserved.</p>
+</footer>
+
+<script>
+function bookAppointment(){
+
+    let name = document.getElementById("name").value;
+    let doctor = document.getElementById("doctor").value;
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+
+    if(name === "" || date === "" || time === ""){
+        alert("Please fill Patient Name, Date and Time");
+        return;
+    }
+
+    document.getElementById("result").innerHTML = `
+        <div style="
+            background:#ccfbf1;
+            color:#115e59;
+            padding:20px;
+            border-left:8px solid #14b8a6;
+            border-radius:10px;
+            font-size:18px;
+            font-weight:bold;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        ">
+            ✅ Appointment Confirmed!<br><br>
+            👤 Patient: ${name}<br>
+            🩺 Doctor: ${doctor}<br>
+            📅 Date: ${date}<br>
+            ⏰ Time: ${time}<br><br>
+            🏥 Thank you for choosing MediCare Hospital.
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>
