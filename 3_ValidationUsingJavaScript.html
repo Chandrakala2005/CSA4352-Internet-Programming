@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Validation</title>
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            background:#f2f2f2;
+        }
+
+        .container{
+            width:350px;
+            margin:100px auto;
+            padding:20px;
+            background:white;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        h2{
+            text-align:center;
+            color:teal;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            box-sizing:border-box;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            background:teal;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        .error{
+            color:red;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Registration Form</h2>
+
+    <form onsubmit="return validateForm()">
+        
+        <label>Email:</label>
+        <input type="text" id="email">
+        <span id="emailError" class="error"></span>
+
+        <label>Phone Number:</label>
+        <input type="text" id="phone">
+        <span id="phoneError" class="error"></span>
+
+        <br><br>
+        <button type="submit">Submit</button>
+
+    </form>
+</div>
+
+<script>
+function validateForm()
+{
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let phonePattern = /^[0-9]{10}$/;
+
+    let valid = true;
+
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("phoneError").innerHTML = "";
+
+    if(!emailPattern.test(email))
+    {
+        document.getElementById("emailError").innerHTML =
+        "Enter a valid email";
+        valid = false;
+    }
+
+    if(!phonePattern.test(phone))
+    {
+        document.getElementById("phoneError").innerHTML =
+        "Enter a valid phone number";
+        valid = false;
+    }
+
+    if(valid)
+    {
+        alert("Form Submitted Successfully");
+    }
+
+    return valid;
+}
+</script>
+
+</body>
+</html>
