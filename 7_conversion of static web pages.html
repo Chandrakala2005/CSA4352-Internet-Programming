@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dynamic JSP Page</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background-color:#f4f4f4;
+    text-align:center;
+    margin-top:100px;
+}
+
+.container{
+    width:500px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+h1{
+    color:blue;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Welcome to JSP Dynamic Web Page</h1>
+
+    <%
+        String name = "Deepika";
+    %>
+
+    <h2>Hello, <%= name %>!</h2>
+
+    <p>Current Date and Time:</p>
+
+    <h3>
+        <%= new java.util.Date() %>
+    </h3>
+
+</div>
+
+</body>
+</html>
