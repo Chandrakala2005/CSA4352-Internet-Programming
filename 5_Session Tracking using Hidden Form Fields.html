@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Session Tracking Using Hidden Form Fields</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container{
+            width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2{
+            text-align: center;
+            color: teal;
+        }
+
+        input[type="text"]{
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"]{
+            width: 100%;
+            padding: 10px;
+            background: teal;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Session Tracking Using Hidden Form Fields</h2>
+
+    <form action="#">
+        <label>Enter Name:</label>
+        <input type="text" name="username" required>
+
+        <!-- Hidden Field -->
+        <input type="hidden" name="userid" value="101">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
