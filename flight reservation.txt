@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyBook Flight Reservation</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(to right,#e0f7ff,#ffffff);
+}
+
+header{
+background:linear-gradient(135deg,#0099ff,#00d4ff);
+color:white;
+text-align:center;
+padding:30px;
+border-bottom-left-radius:30px;
+border-bottom-right-radius:30px;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+.logo{
+font-size:35px;
+font-weight:bold;
+}
+
+.hero h1{
+margin-top:10px;
+font-size:42px;
+}
+
+.hero p{
+font-size:18px;
+margin-top:10px;
+}
+
+.offer{
+background:white;
+width:90%;
+margin:20px auto;
+padding:20px;
+text-align:center;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.offer h2{
+color:#0099ff;
+}
+
+.search-container{
+background:white;
+width:90%;
+max-width:1100px;
+margin:20px auto;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+}
+
+input,select{
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+width:100%;
+}
+
+button{
+background:#ff6b00;
+color:white;
+border:none;
+padding:13px;
+border-radius:30px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff8c33;
+}
+
+.results{
+width:90%;
+margin:auto;
+padding-bottom:30px;
+}
+
+.results h2{
+margin-bottom:15px;
+color:#0099ff;
+}
+
+.flight-card{
+background:white;
+border-left:8px solid #0099ff;
+padding:20px;
+margin-bottom:15px;
+border-radius:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.price{
+font-size:24px;
+font-weight:bold;
+color:#ff6b00;
+}
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+}
+
+.modal-content{
+background:white;
+padding:25px;
+width:90%;
+max-width:450px;
+border-radius:15px;
+}
+
+.modal-content input,
+.modal-content select{
+margin-bottom:10px;
+}
+
+.close{
+float:right;
+font-size:24px;
+cursor:pointer;
+}
+
+.success{
+color:green;
+font-weight:bold;
+margin-top:10px;
+}
+
+#clock{
+text-align:center;
+font-size:22px;
+font-weight:bold;
+color:#0099ff;
+margin:20px;
+}
+
+footer{
+background:#0099ff;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">✈️ SkyBook</div>
+
+<div class="hero">
+<h1>Book Flights Anywhere</h1>
+<p>Search, Compare and Reserve Flights Easily</p>
+</div>
+
+</header>
+
+<div class="offer">
+<h2>🎉 Special Summer Offer</h2>
+<p>Get Up To 30% Discount On Domestic Flights</p>
+</div>
+
+<section class="search-container">
+
+<div class="form-grid">
+
+<input type="text" placeholder="From">
+
+<input type="text" placeholder="To">
+
+<input type="date">
+
+<select>
+<option>Economy Class</option>
+<option>Business Class</option>
+<option>First Class</option>
+</select>
+
+<select>
+<option>1 Passenger</option>
+<option>2 Passengers</option>
+<option>3 Passengers</option>
+<option>4 Passengers</option>
+</select>
+
+<input type="text" placeholder="Mobile Number">
+
+<button onclick="searchFlights()">
+Search Flights
+</button>
+
+</div>
+
+</section>
+
+<section class="results">
+
+<h2>Available Flights</h2>
+
+<div id="flightResults">
+<p>Search for flights to view available options.</p>
+</div>
+
+</section>
+
+<div class="modal" id="bookingModal">
+
+<div class="modal-content">
+
+<span class="close" onclick="closeModal()">&times;</span>
+
+<h3>Passenger Details</h3>
+
+<input type="text" id="name" placeholder="Passenger Name">
+
+<input type="email" placeholder="Email Address">
+
+<input type="text" placeholder="Mobile Number">
+
+<select>
+<option>Window Seat</option>
+<option>Aisle Seat</option>
+<option>Middle Seat</option>
+</select>
+
+<button onclick="confirmBooking()">
+Confirm Booking
+</button>
+
+<div id="message"></div>
+
+</div>
+
+</div>
+
+<div id="clock"></div>
+
+<footer>
+<p>©️ 2026 SkyBook Flight Reservation System</p>
+</footer>
+
+<script>
+
+const flights=[
+
+{
+airline:"✈️ Air India",
+from:"Chennai",
+to:"Delhi",
+time:"08:00 AM",
+price:"₹6,499",
+rating:"⭐⭐⭐⭐⭐"
+},
+
+{
+airline:"✈️ IndiGo",
+from:"Chennai",
+to:"Mumbai",
+time:"10:30 AM",
+price:"₹5,299",
+rating:"⭐⭐⭐⭐"
+},
+
+{
+airline:"✈️ Vistara",
+from:"Chennai",
+to:"Bangalore",
+time:"01:45 PM",
+price:"₹3,899",
+rating:"⭐⭐⭐⭐⭐"
+},
+
+{
+airline:"✈️ Akasa Air",
+from:"Chennai",
+to:"Hyderabad",
+time:"04:20 PM",
+price:"₹4,299",
+rating:"⭐⭐⭐⭐"
+}
+
+];
+
+function searchFlights(){
+
+let container=document.getElementById("flightResults");
+
+container.innerHTML="";
+
+flights.forEach(flight=>{
+
+container.innerHTML+=`
+
+<div class="flight-card">
+
+<div>
+
+<h3>${flight.airline}</h3>
+
+<p>${flight.from} ➜ ${flight.to}</p>
+
+<p>Departure: ${flight.time}</p>
+
+<p>${flight.rating}</p>
+
+</div>
+
+<div>
+
+<div class="price">${flight.price}</div>
+
+<br>
+
+<button onclick="bookFlight()">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function bookFlight(){
+
+document.getElementById("bookingModal").style.display="flex";
+
+}
+
+function closeModal(){
+
+document.getElementById("bookingModal").style.display="none";
+
+}
+
+function confirmBooking(){
+
+let name=document.getElementById("name").value;
+
+if(name==""){
+alert("Please Enter Passenger Name");
+return;
+}
+
+document.getElementById("message").innerHTML=
+"<p class='success'>✅ Booking Confirmed Successfully! Thank You, "+name+"</p>";
+
+}
+
+window.onclick=function(event){
+
+let modal=document.getElementById("bookingModal");
+
+if(event.target==modal){
+modal.style.display="none";
+}
+
+}
+
+setInterval(function(){
+
+document.getElementById("clock").innerHTML=
+"🕒 Current Time : " + new Date().toLocaleTimeString();
+
+},1000);
+
+</script>
+
+</body>
+</html>
