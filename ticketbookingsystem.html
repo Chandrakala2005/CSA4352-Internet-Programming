@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Flight Ticket Booking Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#fff7ed;
+}
+
+/* Header */
+header{
+    background:linear-gradient(135deg,#ff7a18,#af002d);
+    color:white;
+    padding:25px 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#ffd6a5;
+}
+
+/* Hero Section */
+.hero{
+    background:linear-gradient(135deg,#ff7a18,#af002d);
+    color:white;
+    text-align:center;
+    padding:70px 20px 120px;
+}
+
+.hero h1{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:20px;
+}
+
+/* Search Box */
+.search-box{
+    width:80%;
+    background:white;
+    margin:-70px auto 40px;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+}
+
+input,select,button{
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+button{
+    background:#dc2626;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#991b1b;
+}
+
+/* Dashboard */
+.dashboard{
+    width:80%;
+    margin:auto;
+}
+
+/* Cards */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.card h2{
+    color:#ea580c;
+    margin-bottom:10px;
+}
+
+/* Flight List */
+.flight-list{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom:30px;
+}
+
+.flight{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+    padding:18px 0;
+}
+
+.flight:last-child{
+    border-bottom:none;
+}
+
+.flight h3{
+    color:#c2410c;
+}
+
+.price{
+    color:#dc2626;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* Destinations */
+.destinations{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.destination{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.destination h3{
+    color:#c2410c;
+}
+
+/* Offer Section */
+.offer{
+    background:linear-gradient(135deg,#f97316,#dc2626);
+    color:white;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* Booking Table */
+.booking-table{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom:30px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th{
+    background:#fed7aa;
+    padding:12px;
+}
+
+table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+/* Flight Status */
+.status-box{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom:30px;
+}
+
+.status-box input{
+    width:250px;
+    margin-right:10px;
+}
+
+/* Footer */
+footer{
+    margin-top:50px;
+    background:#7c2d12;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* Responsive */
+@media(max-width:900px){
+
+    .form-grid,
+    .cards,
+    .destinations{
+        grid-template-columns:1fr;
+    }
+
+    .flight{
+        flex-direction:column;
+        gap:10px;
+        text-align:center;
+    }
+
+    .status-box input{
+        width:100%;
+        margin-bottom:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">✈ FlyEasy</div>
+
+    <nav>
+        <a href="#">Dashboard</a>
+        <a href="#">Bookings</a>
+        <a href="#">Flights</a>
+        <a href="#">Offers</a>
+        <a href="#">Profile</a>
+        <a href="#">Logout</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Flight Ticket Booking System</h1>
+    <p>Search, Book and Manage Your Flight Tickets Easily</p>
+</section>
+
+<div class="search-box">
+    <div class="form-grid">
+
+        <select>
+            <option>One Way</option>
+            <option>Round Trip</option>
+        </select>
+
+        <input type="text" placeholder="From">
+
+        <input type="text" placeholder="To">
+
+        <input type="date">
+
+        <input type="number" placeholder="Passengers">
+
+        <button onclick="showFlights()">Search Flights</button>
+
+    </div>
+</div>
+
+<section class="dashboard">
+
+    <!-- Cards -->
+    <div class="cards">
+
+        <div class="card">
+            <h2>25+</h2>
+            <p>Available Flights</p>
+        </div>
+
+        <div class="card">
+            <h2>120+</h2>
+            <p>Total Bookings</p>
+        </div>
+
+        <div class="card">
+            <h2>₹3500</h2>
+            <p>Starting Price</p>
+        </div>
+
+        <div class="card">
+            <h2>24/7</h2>
+            <p>Customer Support</p>
+        </div>
+
+    </div>
+
+    <!-- Flights -->
+    <div class="flight-list">
+
+        <h2>Available Flights</h2>
+        <br>
+
+        <div id="flights">
+            <p>Search for flights to view results.</p>
+        </div>
+
+    </div>
+
+    <!-- Destinations -->
+    <div class="destinations">
+
+        <div class="destination">
+            <h3>Chennai</h3>
+            <p>Starting from ₹3,500</p>
+        </div>
+
+        <div class="destination">
+            <h3>Hyderabad</h3>
+            <p>Starting from ₹4,000</p>
+        </div>
+
+        <div class="destination">
+            <h3>Delhi</h3>
+            <p>Starting from ₹6,200</p>
+        </div>
+
+    </div>
+
+    <!-- Offer -->
+    <div class="offer">
+        <h2>🔥 Special Offer</h2>
+        <p>Get 30% OFF on your first booking. Limited Time Offer!</p>
+    </div>
+
+    <!-- Booking History -->
+    <div class="booking-table">
+
+        <h2>My Bookings</h2>
+        <br>
+
+        <table>
+            <tr>
+                <th>Flight</th>
+                <th>Route</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>Indigo</td>
+                <td>Chennai → Hyderabad</td>
+                <td>15-06-2026</td>
+                <td>Confirmed</td>
+            </tr>
+
+            <tr>
+                <td>Air India</td>
+                <td>Delhi → Mumbai</td>
+                <td>18-06-2026</td>
+                <td>Pending</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- Flight Status -->
+    <div class="status-box">
+
+        <h2>Flight Status</h2>
+        <br>
+
+        <input type="text" id="flightNumber"
+        placeholder="Enter Flight Number">
+
+        <button onclick="checkStatus()">
+            Check Status
+        </button>
+
+        <br><br>
+
+        <p id="status"></p>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>© 2026 FlyEasy Flight Ticket Booking System</p>
+</footer>
+
+<script>
+
+function showFlights(){
+
+document.getElementById("flights").innerHTML = `
+
+<div class="flight">
+<div>
+<h3>Indigo Airlines</h3>
+<p>Chennai → Hyderabad | 10:00 AM</p>
+</div>
+<div class="price">₹4,500</div>
+<button onclick="bookFlight()">Book Now</button>
+</div>
+
+<div class="flight">
+<div>
+<h3>Air India</h3>
+<p>Chennai → Delhi | 01:30 PM</p>
+</div>
+<div class="price">₹6,200</div>
+<button onclick="bookFlight()">Book Now</button>
+</div>
+
+<div class="flight">
+<div>
+<h3>SpiceJet</h3>
+<p>Chennai → Bangalore | 06:45 PM</p>
+</div>
+<div class="price">₹3,800</div>
+<button onclick="bookFlight()">Book Now</button>
+</div>
+
+`;
+}
+
+function bookFlight(){
+alert("Flight Booked Successfully ✈");
+}
+
+function checkStatus(){
+document.getElementById("status").innerHTML =
+"✅ Flight is On Time";
+}
+
+</script>
+
+</body>
+</html>
