@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f7ff;
+        }
+
+        header {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        nav {
+            background: #0059b3;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card {
+            display: inline-block;
+            background: white;
+            width: 250px;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        .card h3 {
+            color: #003366;
+        }
+
+        footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 8px;
+            width: 250px;
+        }
+
+        button {
+            background: #0059b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Library Management System</h1>
+    <p>Manage Books, Students and Library Records</p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Books</a>
+    <a href="#">Students</a>
+    <a href="#">Issue Book</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="container">
+    <h2>Welcome to Library Management System</h2>
+
+    <div class="card">
+        <h3>Total Books</h3>
+        <p>500+</p>
+    </div>
+
+    <div class="card">
+        <h3>Registered Students</h3>
+        <p>300+</p>
+    </div>
+
+    <div class="card">
+        <h3>Issued Books</h3>
+        <p>120+</p>
+    </div>
+
+    <h2>Add Book Details</h2>
+
+    <form>
+        <input type="text" placeholder="Book Name"><br>
+        <input type="text" placeholder="Author Name"><br>
+        <input type="text" placeholder="Book ID"><br>
+        <button type="submit">Add Book</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2026 Library Management System</p>
+</footer>
+
+</body>
+</html>
